@@ -4,6 +4,7 @@ import ru.javarush.vladimirn.cryptoanalyzer.commands.Action;
 import ru.javarush.vladimirn.cryptoanalyzer.commands.BruteForce;
 import ru.javarush.vladimirn.cryptoanalyzer.commands.Decoder;
 import ru.javarush.vladimirn.cryptoanalyzer.commands.Encoder;
+import ru.javarush.vladimirn.cryptoanalyzer.exceptions.AppException;
 
 public enum Actions {
     ENCODE(new Encoder()),
@@ -21,8 +22,7 @@ public enum Actions {
             Actions value = Actions.valueOf(actionName.toUpperCase());
             return value.action;
         } catch (IllegalArgumentException e) {
-            //TODO exception throw
-            return null;
+            throw new AppException("Couldn't find such action.", e);
         }
     }
 }

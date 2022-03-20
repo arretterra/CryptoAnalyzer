@@ -3,3 +3,7 @@
 target/
 *.log
 *.class
+/text/encoded.txt
+/text/decoded.txt
+/text/bruteforced.txt
+/text/log.txt

@@ -3,7 +3,6 @@ package ru.javarush.vladimirn.cryptoanalyzer;
 import ru.javarush.vladimirn.cryptoanalyzer.controllers.MainController;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Result;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.ResultCode;
-
 import java.util.Arrays;
 
 public class Application {

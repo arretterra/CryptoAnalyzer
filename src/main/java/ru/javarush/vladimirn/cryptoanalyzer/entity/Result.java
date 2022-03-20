@@ -11,4 +11,11 @@ public class Result {
         this.message = message;
         this.resultCode = resultCode;
     }
+
+    @Override
+    public String toString() {
+        return "The program says: " +
+                message +
+                " Which means " + resultCode + ".";
+    }
 }

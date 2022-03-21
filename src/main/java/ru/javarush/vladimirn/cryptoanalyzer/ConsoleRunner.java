@@ -13,11 +13,13 @@ import java.nio.file.Path;
 public class ConsoleRunner {
     public static void main(String[] args) throws IOException {
         Application application = new Application();
-        Result result = new Result("Process failed. See log file in: " + Constants.TXT_FOLDER, ResultCode.ERROR);
+        Result result = new Result("Process failed. See log file in: " + Constants.TXT_FOLDER + "log.txt",
+                ResultCode.ERROR);
         try {
             result = application.run(args);
         } catch (AppException e) {
-            try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of(Constants.TXT_FOLDER + "log.txt"))) {
+            try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Path.of(Constants.TXT_FOLDER
+                    + "log.txt"))) {
                 bufferedWriter.write("Exception tells us: " + e.getMessage() + "\n");
                 bufferedWriter.write("That was in class: " + e.getClass() + "\n");
                 bufferedWriter.write("Because we've got: " + e.getCause() + "\n");

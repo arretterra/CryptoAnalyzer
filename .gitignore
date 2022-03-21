@@ -7,3 +7,5 @@ target/
 /text/decoded.txt
 /text/bruteforced.txt
 /text/log.txt
+/text/input.txt
+/text/output.txt

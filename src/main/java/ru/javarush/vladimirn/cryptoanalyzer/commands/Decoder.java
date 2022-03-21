@@ -28,7 +28,7 @@ public class Decoder implements Action {
             int length = bufferedReader.read(read, 0, 8192);
             String temp = new String(Coder.code(read, length, key));
             if (!Validate.run(temp)) {
-                System.out.println("Decoding complete, but it looks like you gave me a wrong key. " +
+                System.out.println("Decoding complete, but it looks like the key was incorrect. " +
                         "Sending file to BruteForce.");
                 MainController mainController = new MainController();
                 return mainController.doAction("bruteforce", parameters);

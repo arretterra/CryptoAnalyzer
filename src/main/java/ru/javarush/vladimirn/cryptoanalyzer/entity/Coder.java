@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class Coder {
 
-    public static void run(Key key, String input, String output) throws IOException {
+    public static void code(Key key, String input, String output) throws IOException {
         Path inputTxt = Path.of(Constants.TXT_FOLDER + input);
         Path outputTxt = Path.of(Constants.TXT_FOLDER + output);
         try (BufferedReader bufferedReader = Files.newBufferedReader(inputTxt);
@@ -19,7 +19,7 @@ public class Coder {
             while (bufferedReader.ready()) {
                 char[] buffer = new char[1024];
                 int length = bufferedReader.read(buffer, 0, 1024);
-                char[] coded = code(buffer, length, key);
+                char[] coded = codeOneBuffer(buffer, length, key);
                 bufferedWriter.write(coded, 0, length);
                 bufferedWriter.flush();
             }
@@ -27,7 +27,7 @@ public class Coder {
     }
 
 
-    public static char[] code(char[] input, int length, Key key) {
+    public static char[] codeOneBuffer(char[] input, int length, Key key) {
         HashMap<Character, Character> cipher = key.getCipher();
         char[] output = new char[length];
         for (int i = 0; i < output.length; i++) {

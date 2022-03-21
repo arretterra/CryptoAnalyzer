@@ -8,7 +8,7 @@ public class ActionRequester {
         String action;
         while(true) {
             action = sc.nextLine();
-            if (action.equals("") || action.equals(" ")) {
+            if (action.equals("") || action.matches("\\s+")) {
                 action = "encode";
                 break;
             } else if (action.equalsIgnoreCase("encode") || action.equalsIgnoreCase("decode")

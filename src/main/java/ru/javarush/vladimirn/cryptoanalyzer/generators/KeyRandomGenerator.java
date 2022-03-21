@@ -1,8 +1,8 @@
-package ru.javarush.vladimirn.cryptoanalyzer.entity;
+package ru.javarush.vladimirn.cryptoanalyzer.generators;
 
 import java.util.Random;
 
-public class KeyRandomizer {
+public class KeyRandomGenerator {
 
     public static int generate() {
         Random random = new Random();

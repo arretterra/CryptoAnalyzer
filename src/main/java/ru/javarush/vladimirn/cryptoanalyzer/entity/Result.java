@@ -16,6 +16,6 @@ public class Result {
     public String toString() {
         return "The program says: " +
                 message +
-                " Which means " + resultCode + ".";
+                " Which means " + resultCode + ".\n";
     }
 }

@@ -7,6 +7,8 @@ import ru.javarush.vladimirn.cryptoanalyzer.entity.Key;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Result;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.ResultCode;
 import ru.javarush.vladimirn.cryptoanalyzer.exceptions.AppException;
+import ru.javarush.vladimirn.cryptoanalyzer.validators.TextValidator;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +20,7 @@ public class Decoder implements Action {
     public Result execute(String[] parameters) {
         Key key = Key.getKey(parameters[2]);
         try {
-            Coder.run(key, parameters[0], parameters[1]);
+            Coder.code(key, parameters[0], parameters[1]);
         } catch (IOException e) {
             throw new AppException("Decoding failed.", e);
         }
@@ -26,8 +28,8 @@ public class Decoder implements Action {
                 + parameters[1]))) {
             char[] read = new char[8192];
             int length = bufferedReader.read(read, 0, 8192);
-            String temp = new String(Coder.code(read, length, key));
-            if (!Validate.run(temp)) {
+            String temp = new String(Coder.codeOneBuffer(read, length, key));
+            if (!TextValidator.run(temp)) {
                 System.out.println("Decoding complete, but it looks like the key was incorrect. " +
                         "Sending file to BruteForce.");
                 MainController mainController = new MainController();
@@ -36,6 +38,7 @@ public class Decoder implements Action {
         } catch (IOException e) {
             throw new AppException("I've got an error while validating encoded file.", e);
         }
-        return new Result("Decoding successful.", ResultCode.OK);
+        System.out.println("Your decoded file is ready: " + Constants.TXT_FOLDER + parameters[1]);
+        return new Result("Decoding successful.", ResultCode.ALL_WENT_GOOD);
     }
 }

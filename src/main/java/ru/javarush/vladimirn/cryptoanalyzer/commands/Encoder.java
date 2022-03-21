@@ -1,5 +1,6 @@
 package ru.javarush.vladimirn.cryptoanalyzer.commands;
 
+import ru.javarush.vladimirn.cryptoanalyzer.constants.Constants;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Coder;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Key;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Result;
@@ -14,11 +15,12 @@ public class Encoder implements Action {
     public Result execute(String[] parameters) {
         Key key = Key.getKey(parameters[2], true);
         try {
-            Coder.run(key, parameters[0], parameters[1]);
+            Coder.code(key, parameters[0], parameters[1]);
         } catch (IOException e) {
             throw new AppException("Encoding failed.", e);
         }
-        return new Result("Encoding successful.", ResultCode.OK);
+        System.out.println("Your encoded file is ready: " + Constants.TXT_FOLDER + parameters[1]);
+        return new Result("Encoding successful.", ResultCode.ALL_WENT_GOOD);
     }
 
 }

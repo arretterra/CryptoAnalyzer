@@ -1,9 +1,9 @@
-package ru.javarush.vladimirn.cryptoanalyzer.commands;
+package ru.javarush.vladimirn.cryptoanalyzer.validators;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Validate {
+public class TextValidator {
 
     public static boolean run(String input) {
         String verifier = "[.,\"':\\-!?\\s][А-ЯЁ]?[а-яё]*[.,\"':\\-!?\\s]";

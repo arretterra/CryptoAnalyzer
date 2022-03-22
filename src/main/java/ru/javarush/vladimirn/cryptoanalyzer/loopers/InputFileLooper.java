@@ -8,17 +8,17 @@ import java.nio.file.Path;
 
 public class InputFileLooper {
 
-    public static String execute() {
+    public static String request() {
         String fileName;
         do {
-            fileName = FileNameRequester.run();
-        } while (!FileValidator.exists(Path.of(Constants.TXT_FOLDER + fileName)));
+            fileName = FileNameRequester.request();
+        } while (FileValidator.notExists(Path.of(Constants.TXT_FOLDER + fileName)));
         return fileName;
     }
 
-    public static String execute(String fileName) {
-        while ((!FileValidator.exists(Path.of(Constants.TXT_FOLDER + fileName)))) {
-            fileName = FileNameRequester.run();
+    public static String check(String fileName) {
+        while ((FileValidator.notExists(Path.of(Constants.TXT_FOLDER + fileName)))) {
+            fileName = FileNameRequester.request();
         }
         return fileName;
     }

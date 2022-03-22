@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ActionRequester {
 
-    public static String run() {
+    public static String request() {
         System.out.println("Type an action you want to perform.\n" +
                 "(encode/decode/bruteforce or press Enter for encode)");
         String action;

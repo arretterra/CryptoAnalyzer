@@ -2,6 +2,7 @@ package ru.javarush.vladimirn.cryptoanalyzer.entity;
 
 
 import ru.javarush.vladimirn.cryptoanalyzer.constants.Constants;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;

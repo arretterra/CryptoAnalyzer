@@ -20,17 +20,20 @@ public class BruteForce implements Action {
     public Result execute(String[] parameters) {
         boolean success = false;
         int keyValue = -1;
-        Path inputTxt = Path.of(Constants.TXT_FOLDER + FileValidator.extensionValidate(parameters[0]));
+        Path inputTxt = Path.of(Constants.TXT_FOLDER + FileValidator.validateExtension(parameters[0]));
         while (!success) {
             try (BufferedReader bufferedReader = Files.newBufferedReader(inputTxt)) {
                 bufferedReader.mark(8192);
                 keyValue++;
                 String generated = BufferedStringGenerator.generate(keyValue, bufferedReader);
-                success = TextValidator.run(generated);
+                success = TextValidator.validate(generated);
                 bufferedReader.reset();
                 if (success && keyValue == 0) {
                     return new Result("That file wasn't even encoded! :/ So there is no need for creating " +
-                            FileValidator.extensionValidate(parameters[1]), ResultCode.ALL_WENT_GOOD);
+                            FileValidator.validateExtension(parameters[1]), ResultCode.ALL_WENT_GOOD);
+                }
+                if (!success && keyValue > Constants.getAlphabetLength()) {
+                    return new Result("Bruteforce failed :(.", ResultCode.FAILED);
                 }
             } catch (IOException e) {
                 throw new AppException("I've got error while reading file for brute forcing.", e);
@@ -38,13 +41,13 @@ public class BruteForce implements Action {
         }
         Key key = Key.getKey(keyValue);
         try {
-            Coder.code(key, FileValidator.extensionValidate(parameters[0]),
-                    FileValidator.extensionValidate(parameters[1]));
+            Coder.code(key, FileValidator.validateExtension(parameters[0]),
+                    FileValidator.validateExtension(parameters[1]));
         } catch (IOException e) {
             throw new AppException("BruteForcing failed while decoding with key=" + key.getValue() + ".", e);
         }
         System.out.println("Your brute forced file is ready: " + Constants.TXT_FOLDER
-                + FileValidator.extensionValidate(parameters[1]));
+                + FileValidator.validateExtension(parameters[1]));
         return new Result("BruteForcing successful with key=" + key.getValue() + ".", ResultCode.ALL_WENT_GOOD);
     }
 

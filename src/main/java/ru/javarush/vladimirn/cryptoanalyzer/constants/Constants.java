@@ -13,7 +13,7 @@ public class Constants {
     public static final String TXT_FOLDER = System.getProperty("user.dir") + File.separator + "text" + File.separator;
     public static final Scanner SCANNER = new Scanner(System.in);
 
-    public static int getLength() {
+    public static int getAlphabetLength() {
         return ALPHABET.length;
     }
 }

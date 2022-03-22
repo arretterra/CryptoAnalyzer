@@ -8,11 +8,11 @@ import java.util.Scanner;
 
 public class FileNameRequester {
 
-    public static String run() {
-        return run(false);
+    public static String request() {
+        return request(false);
     }
 
-    protected static String run(boolean output) {
+    protected static String request(boolean output) {
         String fileName;
         Scanner scanner = Constants.SCANNER;
         fileName = scanner.nextLine();
@@ -25,7 +25,7 @@ public class FileNameRequester {
         } else if ((fileName.equals("") || fileName.matches("\\s+"))) {
             fileName = "output.txt";
         } else {
-            fileName = FileValidator.extensionValidate(fileName);
+            fileName = FileValidator.validateExtension(fileName);
         }
         return fileName;
     }

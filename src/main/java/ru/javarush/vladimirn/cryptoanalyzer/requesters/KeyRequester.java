@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class KeyRequester {
 
-    public static String run() {
+    public static String request() {
         System.out.println("Type an encryption key.\n" +
                 "Or press Enter to randomly generate it.");
         String key;

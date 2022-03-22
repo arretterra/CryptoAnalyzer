@@ -9,7 +9,7 @@ public class KeyValidator {
             return parameters[2];
         } catch (ArrayIndexOutOfBoundsException aioobe) {
             System.err.println("Key not found.");
-            return KeyRequester.run();
+            return KeyRequester.request();
         }
     }
 }

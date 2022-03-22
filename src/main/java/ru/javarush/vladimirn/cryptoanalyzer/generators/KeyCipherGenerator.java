@@ -1,6 +1,7 @@
 package ru.javarush.vladimirn.cryptoanalyzer.generators;
 
 import ru.javarush.vladimirn.cryptoanalyzer.constants.Constants;
+
 import java.util.HashMap;
 
 public class KeyCipherGenerator {

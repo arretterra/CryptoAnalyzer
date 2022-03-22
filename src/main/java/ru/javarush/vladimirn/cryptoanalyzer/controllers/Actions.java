@@ -23,7 +23,7 @@ public enum Actions {
             return value.action;
         } catch (IllegalArgumentException e) {
             System.err.println("Couldn't find such action.\n");
-            Actions value = Actions.valueOf(ActionRequester.run().toUpperCase());
+            Actions value = Actions.valueOf(ActionRequester.request().toUpperCase());
             return value.action;
         }
     }

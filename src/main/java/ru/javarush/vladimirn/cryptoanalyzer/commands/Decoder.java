@@ -24,15 +24,15 @@ public class Decoder implements Action {
         String keyValue = KeyValidator.exists(parameters);
         Key key = Key.getKey(keyValue);
         try {
-            Coder.code(key, FileValidator.extensionValidate(parameters[0]),
-                    FileValidator.extensionValidate(parameters[1]));
+            Coder.code(key, FileValidator.validateExtension(parameters[0]),
+                    FileValidator.validateExtension(parameters[1]));
         } catch (IOException e) {
             throw new AppException("Decoding failed.", e);
         }
         try (BufferedReader bufferedReader = Files.newBufferedReader(Path.of(Constants.TXT_FOLDER
                 + parameters[0]))) {
             String generated = BufferedStringGenerator.generate(key.getValue(), bufferedReader);
-            if (!TextValidator.run(generated)) {
+            if (!TextValidator.validate(generated)) {
                 System.out.println("Decoding complete, but it looks like the key was incorrect. " +
                         "Sending file to BruteForce.");
                 MainController mainController = new MainController();
@@ -42,7 +42,7 @@ public class Decoder implements Action {
             throw new AppException("I've got an error while validating encoded file.", e);
         }
         System.out.println("Your decoded file is ready: " + Constants.TXT_FOLDER
-                + FileValidator.extensionValidate(parameters[1]));
+                + FileValidator.validateExtension(parameters[1]));
         return new Result("Decoding successful. With key = " + key.getValue() + ".", ResultCode.ALL_WENT_GOOD);
     }
 }

@@ -2,6 +2,7 @@ package ru.javarush.vladimirn.cryptoanalyzer.generators;
 
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Coder;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Key;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 

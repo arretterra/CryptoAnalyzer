@@ -2,6 +2,7 @@ package ru.javarush.vladimirn.cryptoanalyzer.entity;
 
 import ru.javarush.vladimirn.cryptoanalyzer.generators.KeyCipherGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.generators.KeyValueGenerator;
+
 import java.util.HashMap;
 
 public class Key {

@@ -1,5 +1,5 @@
 package ru.javarush.vladimirn.cryptoanalyzer.entity;
 
 public enum ResultCode {
-    ALL_WENT_GOOD,ERROR,BYEBYE
+    ALL_WENT_GOOD,ERROR,BYEBYE,FAILED
 }

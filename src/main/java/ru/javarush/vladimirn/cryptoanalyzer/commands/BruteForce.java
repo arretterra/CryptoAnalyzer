@@ -6,8 +6,10 @@ import ru.javarush.vladimirn.cryptoanalyzer.entity.Key;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.Result;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.ResultCode;
 import ru.javarush.vladimirn.cryptoanalyzer.exceptions.AppException;
-import ru.javarush.vladimirn.cryptoanalyzer.generators.BFAttemptGenerator;
+import ru.javarush.vladimirn.cryptoanalyzer.generators.BufferedStringGenerator;
+import ru.javarush.vladimirn.cryptoanalyzer.validators.FileValidator;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.TextValidator;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,17 +20,17 @@ public class BruteForce implements Action {
     public Result execute(String[] parameters) {
         boolean success = false;
         int keyValue = -1;
-        Path inputTxt = Path.of(Constants.TXT_FOLDER + parameters[0]);
+        Path inputTxt = Path.of(Constants.TXT_FOLDER + FileValidator.extensionValidate(parameters[0]));
         while (!success) {
             try (BufferedReader bufferedReader = Files.newBufferedReader(inputTxt)) {
                 bufferedReader.mark(8192);
                 keyValue++;
-                String generated = BFAttemptGenerator.generate(keyValue, bufferedReader);
+                String generated = BufferedStringGenerator.generate(keyValue, bufferedReader);
                 success = TextValidator.run(generated);
                 bufferedReader.reset();
                 if (success && keyValue == 0) {
                     return new Result("That file wasn't even encoded! :/ So there is no need for creating " +
-                            parameters[1], ResultCode.ALL_WENT_GOOD);
+                            FileValidator.extensionValidate(parameters[1]), ResultCode.ALL_WENT_GOOD);
                 }
             } catch (IOException e) {
                 throw new AppException("I've got error while reading file for brute forcing.", e);
@@ -36,11 +38,13 @@ public class BruteForce implements Action {
         }
         Key key = Key.getKey(keyValue);
         try {
-            Coder.code(key, parameters[0], parameters[1]);
+            Coder.code(key, FileValidator.extensionValidate(parameters[0]),
+                    FileValidator.extensionValidate(parameters[1]));
         } catch (IOException e) {
             throw new AppException("BruteForcing failed while decoding with key=" + key.getValue() + ".", e);
         }
-        System.out.println("Your brute forced file is ready: " + Constants.TXT_FOLDER + parameters[1]);
+        System.out.println("Your brute forced file is ready: " + Constants.TXT_FOLDER
+                + FileValidator.extensionValidate(parameters[1]));
         return new Result("BruteForcing successful with key=" + key.getValue() + ".", ResultCode.ALL_WENT_GOOD);
     }
 

@@ -5,7 +5,7 @@ import ru.javarush.vladimirn.cryptoanalyzer.entity.Key;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class BFAttemptGenerator {
+public class BufferedStringGenerator {
 
     public static String generate(int keyValue, BufferedReader bufferedReader) throws IOException {
         Key key = Key.getKey(keyValue);

@@ -8,7 +8,7 @@ public class KeyValueGenerator {
         int result;
         try {
             int temp = Integer.parseInt(inputKey);
-            result = temp % Constants.getLength();
+            result = Math.abs(temp % Constants.getLength());
         } catch (NumberFormatException e) {
             byte[] bytes = inputKey.getBytes();
             int count = 0;

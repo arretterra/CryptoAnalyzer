@@ -1,13 +1,18 @@
 package ru.javarush.vladimirn.cryptoanalyzer.requesters;
 
+import ru.javarush.vladimirn.cryptoanalyzer.constants.Constants;
+
 import java.util.Scanner;
 
 public class ActionRequester {
 
-    protected static String run(Scanner sc) {
+    public static String run() {
+        System.out.println("Type an action you want to perform.\n" +
+                "(encode/decode/bruteforce or press Enter for encode)");
         String action;
-        while(true) {
-            action = sc.nextLine();
+        Scanner scanner = Constants.SCANNER;
+        while (true) {
+            action = scanner.nextLine();
             if (action.equals("") || action.matches("\\s+")) {
                 action = "encode";
                 break;
@@ -15,7 +20,7 @@ public class ActionRequester {
                     || action.equalsIgnoreCase("bruteforce")) {
                 break;
             } else {
-                System.out.println("Can't recognize action, try again.");
+                System.err.println("Can't recognize action, try again.");
             }
         }
         return action;

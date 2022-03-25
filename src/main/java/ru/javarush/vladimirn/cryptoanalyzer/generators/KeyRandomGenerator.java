@@ -8,6 +8,6 @@ public class KeyRandomGenerator {
 
     public static int generate() {
         Random random = new Random();
-        return 1 + random.nextInt(Constants.getAlphabetLength());
+        return 1 + random.nextInt(Constants.ALPHABET.length);
     }
 }

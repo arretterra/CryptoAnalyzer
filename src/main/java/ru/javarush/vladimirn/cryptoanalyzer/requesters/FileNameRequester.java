@@ -4,8 +4,6 @@ import ru.javarush.vladimirn.cryptoanalyzer.constants.Constants;
 import ru.javarush.vladimirn.cryptoanalyzer.printers.DirectoryPrinter;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.FileValidator;
 
-import java.util.Scanner;
-
 public class FileNameRequester {
 
     public static String request() {
@@ -14,15 +12,14 @@ public class FileNameRequester {
 
     protected static String request(boolean output) {
         String fileName;
-        Scanner scanner = Constants.SCANNER;
-        fileName = scanner.nextLine();
-        if (fileName.equals("dir")) {
+        fileName = Constants.SCANNER.nextLine();
+        if ("dir".equals(fileName)) {
             DirectoryPrinter.print();
-            fileName = scanner.nextLine();
+            fileName = Constants.SCANNER.nextLine();
         }
-        if ((fileName.equals("") || fileName.matches("\\s+")) && !output) {
+        if (("".equals(fileName) || fileName.matches("\\s+")) && !output) {
             fileName = "input.txt";
-        } else if ((fileName.equals("") || fileName.matches("\\s+"))) {
+        } else if (("".equals(fileName) || fileName.matches("\\s+"))) {
             fileName = "output.txt";
         } else {
             fileName = FileValidator.validateExtension(fileName);

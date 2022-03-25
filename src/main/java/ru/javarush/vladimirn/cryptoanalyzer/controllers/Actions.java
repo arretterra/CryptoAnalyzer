@@ -6,6 +6,7 @@ import ru.javarush.vladimirn.cryptoanalyzer.commands.Decoder;
 import ru.javarush.vladimirn.cryptoanalyzer.commands.Encoder;
 import ru.javarush.vladimirn.cryptoanalyzer.requesters.ActionRequester;
 
+@SuppressWarnings("unused")
 public enum Actions {
     ENCODE(new Encoder()),
     DECODE(new Decoder()),

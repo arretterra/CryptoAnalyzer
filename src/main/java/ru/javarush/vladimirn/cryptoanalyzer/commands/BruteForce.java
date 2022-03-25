@@ -7,6 +7,8 @@ import ru.javarush.vladimirn.cryptoanalyzer.entity.Result;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.ResultCode;
 import ru.javarush.vladimirn.cryptoanalyzer.exceptions.AppException;
 import ru.javarush.vladimirn.cryptoanalyzer.generators.BufferedStringGenerator;
+import ru.javarush.vladimirn.cryptoanalyzer.generators.FilePathNameGenerator;
+import ru.javarush.vladimirn.cryptoanalyzer.constants.Strings;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.FileValidator;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.TextValidator;
 
@@ -20,7 +22,9 @@ public class BruteForce implements Action {
     public Result execute(String[] parameters) {
         boolean success = false;
         int keyValue = -1;
-        Path inputTxt = Path.of(Constants.TXT_FOLDER + FileValidator.validateExtension(parameters[0]));
+        String inputFileName = FileValidator.validateExtension(parameters[0]);
+        String resultFileName = FileValidator.validateExtension(parameters[1]);
+        Path inputTxt = Path.of(FilePathNameGenerator.generatePathName(inputFileName));
         while (!success) {
             try (BufferedReader bufferedReader = Files.newBufferedReader(inputTxt)) {
                 bufferedReader.mark(8192);
@@ -30,9 +34,9 @@ public class BruteForce implements Action {
                 bufferedReader.reset();
                 if (success && keyValue == 0) {
                     return new Result("That file wasn't even encoded! :/ So there is no need for creating " +
-                            FileValidator.validateExtension(parameters[1]), ResultCode.ALL_WENT_GOOD);
+                            resultFileName, ResultCode.ALL_WENT_GOOD);
                 }
-                if (!success && keyValue > Constants.getAlphabetLength()) {
+                if (!success && keyValue > Constants.ALPHABET.length) {
                     return new Result("Bruteforce failed :(.", ResultCode.FAILED);
                 }
             } catch (IOException e) {
@@ -41,16 +45,14 @@ public class BruteForce implements Action {
         }
         Key key = Key.getKey(keyValue);
         try {
-            Coder.code(key, FileValidator.validateExtension(parameters[0]),
-                    FileValidator.validateExtension(parameters[1]));
+            Coder.code(key, inputFileName, resultFileName);
         } catch (IOException e) {
             throw new AppException("BruteForcing failed while decoding with key=" + key.getValue() + ".", e);
         }
-        System.out.println("Your brute forced file is ready: " + Constants.TXT_FOLDER
-                + FileValidator.validateExtension(parameters[1]));
+        System.out.printf(Strings.ACTION_COMPLETE, "bruteforce",
+                FilePathNameGenerator.generatePathName(resultFileName));
         return new Result("BruteForcing successful with key=" + key.getValue() + ".", ResultCode.ALL_WENT_GOOD);
     }
-
 
 
 }

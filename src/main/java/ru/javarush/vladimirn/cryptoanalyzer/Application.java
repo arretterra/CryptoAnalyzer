@@ -5,6 +5,7 @@ import ru.javarush.vladimirn.cryptoanalyzer.entity.Result;
 import ru.javarush.vladimirn.cryptoanalyzer.entity.ResultCode;
 import ru.javarush.vladimirn.cryptoanalyzer.loopers.ConsoleLooper;
 import ru.javarush.vladimirn.cryptoanalyzer.loopers.InputFileLooper;
+import ru.javarush.vladimirn.cryptoanalyzer.constants.Strings;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.FileValidator;
 
 import java.util.Arrays;
@@ -23,19 +24,18 @@ public class Application {
             args[1] = InputFileLooper.check(FileValidator.validateExtension(args[1]));
             String[] parameters = Arrays.copyOfRange(args, 1, args.length);
             System.out.println(mainController.doAction(action, parameters));
-            System.out.println("Press Enter to rerun the program with manual arguments.");
+            System.out.println(Strings.RERUN_MESSAGE);
         } else {
-            System.err.println("""
-                    Not enough program arguments.
-                    Executing console mode.""");
-            System.out.println("\nPress Enter to start the program.");
-        } consoleMaintain();
+            System.err.println(Strings.NOT_ENOUGH_ARGS);
+            System.out.println(Strings.START_THE_PROGRAM);
+        }
+        consoleMaintain();
         return new Result("Shutting down.", ResultCode.BYEBYE);
     }
 
-    private void consoleMaintain() {
-        System.out.println("Or type anything to quit.");
-        ConsoleLooper.loop(mainController);
 
+    private void consoleMaintain() {
+        System.out.println(Strings.TO_QUIT_MESSAGE);
+        ConsoleLooper.loop(mainController);
     }
 }

@@ -8,6 +8,11 @@ public class TextValidator {
     public static boolean validate(String input) {
         String verifier = "[.,\"':\\-!?\\s][А-ЯЁ]?[а-яё]*[.,\"':\\-!?\\s]";
         Pattern finder = Pattern.compile("[.,\"':\\-!?\\s][а-яА-ЯёЁ]+[.,\"':\\-!?\\s]");
+        Pattern spaceBar = Pattern.compile("[ ]");
+        Matcher spaceMatcher = spaceBar.matcher(input);
+        if (!spaceMatcher.find()) {
+            return false;
+        }
         Matcher matcher = finder.matcher(input);
         int start = 0;
         if (matcher.find()) {

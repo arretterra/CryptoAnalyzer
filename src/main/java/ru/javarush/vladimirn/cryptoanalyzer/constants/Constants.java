@@ -12,8 +12,4 @@ public class Constants {
     public static final char[] ALPHABET = (rusAlphabet + rusAlphabet.toLowerCase() + digits + symbols).toCharArray();
     public static final String TXT_FOLDER = System.getProperty("user.dir") + File.separator + "text" + File.separator;
     public static final Scanner SCANNER = new Scanner(System.in);
-
-    public static int getAlphabetLength() {
-        return ALPHABET.length;
-    }
 }

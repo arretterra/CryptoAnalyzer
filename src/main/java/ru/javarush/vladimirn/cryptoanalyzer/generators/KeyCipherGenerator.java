@@ -6,25 +6,18 @@ import java.util.HashMap;
 
 public class KeyCipherGenerator {
 
-    private static final char[] alphabet = Constants.ALPHABET;
 
     public static HashMap<Character, Character> generate(int key, boolean encode) {
         HashMap<Character, Character> cipher = new HashMap<>();
-        if (encode) {
-            for (int i = 0; i < alphabet.length; i++) {
-                int shift = key + i;
-                if (shift >= alphabet.length) {
-                    shift -= alphabet.length;
-                }
-                cipher.put(alphabet[i], alphabet[shift]);
+        for (int i = 0; i < Constants.ALPHABET.length; i++) {
+            int shift = key + i;
+            if (shift >= Constants.ALPHABET.length) {
+                shift -= Constants.ALPHABET.length;
             }
-        } else {
-            for (int i = 0; i < alphabet.length; i++) {
-                int shift = key + i;
-                if (shift >= alphabet.length) {
-                    shift -= alphabet.length;
-                }
-                cipher.put(alphabet[shift], alphabet[i]);
+            if (encode) {
+                cipher.put(Constants.ALPHABET[i], Constants.ALPHABET[shift]);
+            } else {
+                cipher.put(Constants.ALPHABET[shift], Constants.ALPHABET[i]);
             }
         }
         return cipher;

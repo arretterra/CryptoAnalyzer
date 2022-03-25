@@ -1,5 +1,6 @@
 package ru.javarush.vladimirn.cryptoanalyzer.validators;
 
+import ru.javarush.vladimirn.cryptoanalyzer.constants.Strings;
 import ru.javarush.vladimirn.cryptoanalyzer.requesters.KeyRequester;
 
 public class KeyValidator {
@@ -8,7 +9,7 @@ public class KeyValidator {
         try {
             return parameters[2];
         } catch (ArrayIndexOutOfBoundsException aioobe) {
-            System.err.println("Key not found.");
+            System.err.println(Strings.KEY_NOT_FOUND);
             return KeyRequester.request();
         }
     }

@@ -4,6 +4,7 @@ import ru.javarush.vladimirn.cryptoanalyzer.commands.Action;
 import ru.javarush.vladimirn.cryptoanalyzer.commands.BruteForce;
 import ru.javarush.vladimirn.cryptoanalyzer.commands.Decoder;
 import ru.javarush.vladimirn.cryptoanalyzer.commands.Encoder;
+import ru.javarush.vladimirn.cryptoanalyzer.constants.Strings;
 import ru.javarush.vladimirn.cryptoanalyzer.requesters.ActionRequester;
 
 @SuppressWarnings("unused")
@@ -23,7 +24,7 @@ public enum Actions {
             Actions value = Actions.valueOf(actionName.toUpperCase());
             return value.action;
         } catch (IllegalArgumentException e) {
-            System.err.println("Couldn't find such action.\n");
+            System.err.println(Strings.CANT_RECOGNIZE_ACTION);
             Actions value = Actions.valueOf(ActionRequester.request().toUpperCase());
             return value.action;
         }

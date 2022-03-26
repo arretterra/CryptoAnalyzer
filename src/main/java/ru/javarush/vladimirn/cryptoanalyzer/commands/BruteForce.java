@@ -9,6 +9,7 @@ import ru.javarush.vladimirn.cryptoanalyzer.exceptions.AppException;
 import ru.javarush.vladimirn.cryptoanalyzer.generators.BufferedStringGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.generators.FilePathNameGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.constants.Strings;
+import ru.javarush.vladimirn.cryptoanalyzer.generators.MessageGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.FileValidator;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.TextValidator;
 
@@ -33,25 +34,25 @@ public class BruteForce implements Action {
                 success = TextValidator.validate(generated);
                 bufferedReader.reset();
                 if (success && keyValue == 0) {
-                    return new Result("That file wasn't even encoded! :/ So there is no need for creating " +
+                    return new Result(Strings.NOT_ENCODED +
                             resultFileName, ResultCode.ALL_WENT_GOOD);
                 }
-                if (!success && keyValue > Constants.ALPHABET.length) {
-                    return new Result("Bruteforce failed :(.", ResultCode.FAILED);
+                if (!success && keyValue == Constants.ALPHABET.length) {
+                    return new Result(Strings.BRUTE_FORCE_FAILED, ResultCode.FAILED);
                 }
             } catch (IOException e) {
-                throw new AppException("I've got error while reading file for brute forcing.", e);
+                throw new AppException(Strings.READING_FILE_ERROR, e);
             }
         }
         Key key = Key.getKey(keyValue);
         try {
             Coder.code(key, inputFileName, resultFileName);
         } catch (IOException e) {
-            throw new AppException("BruteForcing failed while decoding with key=" + key.getValue() + ".", e);
+            throw new AppException(MessageGenerator.failMessage("Bruteforce", key), e);
         }
         System.out.printf(Strings.ACTION_COMPLETE, "bruteforce",
                 FilePathNameGenerator.generatePathName(resultFileName));
-        return new Result("BruteForcing successful with key=" + key.getValue() + ".", ResultCode.ALL_WENT_GOOD);
+        return new Result(MessageGenerator.successMessage("Bruteforce", key), ResultCode.ALL_WENT_GOOD);
     }
 
 

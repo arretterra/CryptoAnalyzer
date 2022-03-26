@@ -9,6 +9,7 @@ import ru.javarush.vladimirn.cryptoanalyzer.exceptions.AppException;
 import ru.javarush.vladimirn.cryptoanalyzer.generators.BufferedStringGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.generators.FilePathNameGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.constants.Strings;
+import ru.javarush.vladimirn.cryptoanalyzer.generators.MessageGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.FileValidator;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.KeyValidator;
 import ru.javarush.vladimirn.cryptoanalyzer.validators.TextValidator;
@@ -29,7 +30,7 @@ public class Decoder implements Action {
         try {
             Coder.code(key, inputFileName, resultFileName);
         } catch (IOException e) {
-            throw new AppException("Decoding failed.", e);
+            throw new AppException(MessageGenerator.failMessage("Decode", key), e);
         }
         try (BufferedReader bufferedReader = Files.newBufferedReader(
                 Path.of(FilePathNameGenerator.generatePathName(inputFileName)))) {
@@ -40,10 +41,10 @@ public class Decoder implements Action {
                 return mainController.doAction("bruteforce", parameters);
             }
         } catch (IOException e) {
-            throw new AppException("I've got an error while validating encoded file.", e);
+            throw new AppException(Strings.VALIDATING_ERROR, e);
         }
         System.out.printf(Strings.ACTION_COMPLETE, "decode",
                 FilePathNameGenerator.generatePathName(resultFileName));
-        return new Result("Decoding successful. With key = " + key.getValue() + ".", ResultCode.ALL_WENT_GOOD);
+        return new Result(MessageGenerator.successMessage("Decode", key), ResultCode.ALL_WENT_GOOD);
     }
 }

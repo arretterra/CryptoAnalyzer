@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 public class Application {
 
+
     private final MainController mainController;
 
     public Application() {
@@ -21,7 +22,9 @@ public class Application {
     public Result run(String[] args) {
         if (args.length > 2) {
             String action = args[0];
-            args[1] = InputFileLooper.check(FileValidator.validateExtension(args[1]));
+            String inputFile = FileValidator.validateExtension(args[1]);
+            args[1] = InputFileLooper.check(inputFile);
+            args[2] = FileValidator.validateMatches(args[1], args[2]);
             String[] parameters = Arrays.copyOfRange(args, 1, args.length);
             System.out.println(mainController.doAction(action, parameters));
             System.out.println(Strings.RERUN_MESSAGE);
@@ -30,7 +33,7 @@ public class Application {
             System.out.println(Strings.START_THE_PROGRAM);
         }
         consoleMaintain();
-        return new Result("Shutting down.", ResultCode.BYEBYE);
+        return new Result(Strings.SHUTTING_DOWN, ResultCode.BYEBYE);
     }
 
 

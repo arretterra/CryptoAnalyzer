@@ -3,6 +3,7 @@ package ru.javarush.vladimirn.cryptoanalyzer.requesters;
 import ru.javarush.vladimirn.cryptoanalyzer.generators.FilePathNameGenerator;
 import ru.javarush.vladimirn.cryptoanalyzer.loopers.InputFileLooper;
 import ru.javarush.vladimirn.cryptoanalyzer.constants.Strings;
+import ru.javarush.vladimirn.cryptoanalyzer.validators.FileValidator;
 
 public class ArgsRequester {
 
@@ -16,6 +17,7 @@ public class ArgsRequester {
         System.out.printf(Strings.FILE_NAME_RESULT, "input", FilePathNameGenerator.generatePathName(args[1]));
         System.out.printf(Strings.FILE_NAME_REQUEST, "output");
         args[2] = FileNameRequester.request(true);
+        args[2] = FileValidator.validateMatches(args[1], args[2]);
         System.out.printf(Strings.FILE_NAME_RESULT, "output", FilePathNameGenerator.generatePathName(args[2]));
         if ("encode".equalsIgnoreCase(args[0]) || "decode".equalsIgnoreCase(args[0])) {
             args[3] = KeyRequester.request();

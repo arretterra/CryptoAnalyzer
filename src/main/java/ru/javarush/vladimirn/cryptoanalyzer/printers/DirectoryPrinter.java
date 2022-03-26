@@ -12,7 +12,6 @@ import java.nio.file.Path;
 public class DirectoryPrinter {
 
 
-
     public static void print() {
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Path.of(Constants.TXT_FOLDER))) {
             System.out.println(Strings.DIRECTORY_CHOOSE_WISELY);
@@ -23,7 +22,7 @@ public class DirectoryPrinter {
             }
             System.out.println(Strings.WHICH_FILE);
         } catch (IOException e) {
-            throw new AppException("Problem while printing directory stream.", e);
+            throw new AppException(Strings.ERROR_DIR_STREAM, e);
         }
     }
 

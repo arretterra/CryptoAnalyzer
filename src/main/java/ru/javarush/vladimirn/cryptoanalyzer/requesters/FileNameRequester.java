@@ -10,14 +10,14 @@ public class FileNameRequester {
         return request(false);
     }
 
-    protected static String request(boolean output) {
+    public static String request(boolean outputFile) {
         String fileName;
         fileName = Constants.SCANNER.nextLine();
         if ("dir".equals(fileName)) {
             DirectoryPrinter.print();
             fileName = Constants.SCANNER.nextLine();
         }
-        if (("".equals(fileName) || fileName.matches("\\s+")) && !output) {
+        if (("".equals(fileName) || fileName.matches("\\s+")) && !outputFile) {
             fileName = "input.txt";
         } else if (("".equals(fileName) || fileName.matches("\\s+"))) {
             fileName = "output.txt";
